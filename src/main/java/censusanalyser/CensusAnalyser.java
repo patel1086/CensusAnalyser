@@ -35,7 +35,8 @@ public class CensusAnalyser {
 	}
 	
 	public int loadIndiaStateData(String csvFilePath) throws CensusAnalyserException {
-		try (Reader reader = Files.newBufferedReader(Paths.get(csvFilePath));) {
+		try (Reader reader = Files.newBufferedReader(Paths.get(csvFilePath));) 
+			{
 			CsvToBeanBuilder<IndiaStateCodeCSV> csvToBeanBuilder = new CsvToBeanBuilder<>(reader);
 			csvToBeanBuilder.withType(IndiaStateCodeCSV.class);
 			csvToBeanBuilder.withIgnoreLeadingWhiteSpace(true);
