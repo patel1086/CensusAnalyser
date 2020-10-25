@@ -1,7 +1,7 @@
 package censusanalyser;
 
 public class CSVBuilderFactory {
-	public static InterfaceCSVBuilder createCSVBuilder(){
-        return (InterfaceCSVBuilder) new OpenCSVBuilder();
+	public static  OpenCSVBuilder createCSVBuilder(){
+        return  new OpenCSVBuilder();
 }
 }
