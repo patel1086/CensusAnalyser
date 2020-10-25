@@ -19,7 +19,7 @@ public class CensusAnalyserTest {
     private static final String WRONG_STATE_CSV_FILE_HEADER="./src/test/resources/NewIndianStateCodes.csv" ;
    
     @Test
-    public void givenIndianCensus_CSVFileReturns_CorrectRecords() throws CensusAnalyserException {
+    public void givenIndianCensus_CSVFileReturns_CorrectRecords() throws CensusAnalyserException, CSVBuilderException {
         try {
             CensusAnalyser censusAnalyser = new CensusAnalyser();
             int numOfRecords = censusAnalyser.loadIndiaCensusData(INDIA_CENSUS_CSV_FILE_PATH);
@@ -28,7 +28,7 @@ public class CensusAnalyserTest {
     }
 
     @Test
-    public void givenIndiaCensusData_WithWrongFile_ShouldThrowException() {
+    public void givenIndiaCensusData_WithWrongFile_ShouldThrowException() throws CSVBuilderException {
         try {
             CensusAnalyser censusAnalyser = new CensusAnalyser();
             ExpectedException exceptionRule = ExpectedException.none();
@@ -40,7 +40,7 @@ public class CensusAnalyserTest {
     }
     
     @Test
-    public void givenIndiaCensusData_WithWrongType_ShouldThrowException() {
+    public void givenIndiaCensusData_WithWrongType_ShouldThrowException() throws CSVBuilderException {
         try {
             CensusAnalyser censusAnalyser = new CensusAnalyser();
             ExpectedException exceptionRule = ExpectedException.none();
@@ -52,7 +52,7 @@ public class CensusAnalyserTest {
     }
     
     @Test
-    public void givenIndiaCensusData_WithWrongFilePath_ShouldThrowException() {
+    public void givenIndiaCensusData_WithWrongFilePath_ShouldThrowException() throws CSVBuilderException {
         try {
             CensusAnalyser censusAnalyser = new CensusAnalyser();
             ExpectedException exceptionRule = ExpectedException.none();
@@ -64,7 +64,7 @@ public class CensusAnalyserTest {
     }
     
     @Test
-    public void givenIndiaCensusData_WithWrongHeader_ShouldThrowException() {
+    public void givenIndiaCensusData_WithWrongHeader_ShouldThrowException() throws CSVBuilderException {
         try {
             CensusAnalyser censusAnalyser = new CensusAnalyser();
             ExpectedException exceptionRule = ExpectedException.none();
@@ -76,7 +76,7 @@ public class CensusAnalyserTest {
     }
     
     @Test
-    public void givenStateCodeCSVFile_ReturnsCorrectRecords() {
+    public void givenStateCodeCSVFile_ReturnsCorrectRecords() throws CSVBuilderException {
         try {
             CensusAnalyser censusAnalyser = new CensusAnalyser();
             int numOfRecords = censusAnalyser.loadIndiaStateData(INDIA_STATE_CODE_CSV_FILE_PATH);
@@ -87,7 +87,7 @@ public class CensusAnalyserTest {
     }
     
     @Test
-    public void givenWrongStateCodeCSVFilePath_ShouldThrowException() {
+    public void givenWrongStateCodeCSVFilePath_ShouldThrowException() throws CSVBuilderException {
         try {
             CensusAnalyser censusAnalyser = new CensusAnalyser();
             ExpectedException exceptionRule = ExpectedException.none();
@@ -99,7 +99,7 @@ public class CensusAnalyserTest {
     }
     
     @Test
-    public void givenWrongStateCodeCSVFileType_ShouldThrowException() {
+    public void givenWrongStateCodeCSVFileType_ShouldThrowException() throws CSVBuilderException {
         try {
             CensusAnalyser censusAnalyser = new CensusAnalyser();
             ExpectedException exceptionRule = ExpectedException.none();
@@ -111,7 +111,7 @@ public class CensusAnalyserTest {
     }
     
     @Test
-    public void givenWrongStateCodeCSVFile_WithWrongDelimiter_ShouldThrowsException() {
+    public void givenWrongStateCodeCSVFile_WithWrongDelimiter_ShouldThrowsException() throws CSVBuilderException {
         try {
             CensusAnalyser censusAnalyser = new CensusAnalyser();
             ExpectedException exceptionRule = ExpectedException.none();
@@ -123,7 +123,7 @@ public class CensusAnalyserTest {
     }
     
     @Test
-    public void givenStateCodeCSVFile_WithWrongHeader_ShouldThrowsException() {
+    public void givenStateCodeCSVFile_WithWrongHeader_ShouldThrowsException() throws CSVBuilderException {
         try {
             CensusAnalyser censusAnalyser = new CensusAnalyser();
             ExpectedException exceptionRule = ExpectedException.none();
@@ -181,7 +181,7 @@ public class CensusAnalyserTest {
     }
     
     @Test
-    public void giveIndianCensusData_ShouldSortOnState_ThenReturnSortedResult() {
+    public void giveIndianCensusData_ShouldSortOnState_ThenReturnSortedResult() throws CSVBuilderException {
         try {
             CensusAnalyser censusAnalyser = new CensusAnalyser();
             censusAnalyser.loadIndiaCensusData(INDIA_CENSUS_CSV_FILE_PATH);
@@ -195,7 +195,7 @@ public class CensusAnalyserTest {
     }
     
     @Test
-    public void giveIndianCensusData_ShouldSortOnState_ThendReturnSortedResult2() {
+    public void giveIndianCensusData_ShouldSortOnState_ThendReturnSortedResult2() throws CSVBuilderException {
         try {
             CensusAnalyser censusAnalyser = new CensusAnalyser();
             censusAnalyser.loadIndiaCensusData(INDIA_CENSUS_CSV_FILE_PATH);

@@ -21,9 +21,10 @@ import org.apache.commons.csv.CSVRecord;
 
 public class CensusAnalyser {
 	List<IndiaCensusCSV> censusCSVList = null;
-	public int loadIndiaCensusData(String csvFilePath) throws CensusAnalyserException {
+	List<IndiaStateCodeCSV> stateCSVList = null;
+	public int loadIndiaCensusData(String csvFilePath) throws CensusAnalyserException, CSVBuilderException {
 		try (Reader reader = Files.newBufferedReader(Paths.get(csvFilePath));) {
-			censusCSVList = CSVBuilderFactory.createCSVBuilder().getCSVFList(reader, IndiaCensusCSV.class);
+			censusCSVList = CSVBuilderFactory.createCSVBuilder().getCSVFileList(reader, IndiaCensusCSV.class);
             return censusCSVList.size();
 		} catch (IllegalStateException e) {
 			throw new CensusAnalyserException(e.getMessage(), CensusAnalyserException.ExceptionType.UNABLE_TO_PARSE);
@@ -32,10 +33,10 @@ public class CensusAnalyser {
 		}
 	}
 
-	public int loadIndiaStateData(String csvFilePath) throws CensusAnalyserException {
+	public int loadIndiaStateData(String csvFilePath) throws CensusAnalyserException, CSVBuilderException {
 		try (Reader reader = Files.newBufferedReader(Paths.get(csvFilePath));) {
-			censusCSVList = CSVBuilderFactory.createCSVBuilder().getCSVFList(reader, IndiaCensusCSV.class);
-            return censusCSVList.size();
+			stateCSVList = CSVBuilderFactory.createCSVBuilder().getCSVFileList(reader, IndiaStateCodeCSV.class);
+            return stateCSVList.size();
 		} catch (IllegalStateException e) {
 			throw new CensusAnalyserException(e.getMessage(), CensusAnalyserException.ExceptionType.UNABLE_TO_PARSE);
 		} catch (IOException | RuntimeException e) {
