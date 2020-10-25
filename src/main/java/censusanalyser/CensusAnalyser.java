@@ -117,6 +117,24 @@ public class CensusAnalyser {
                     CensusAnalyserException.ExceptionType.FILE_OR_HEADER_PROBLEM);
         }
     }
+	
+	public String getPopulationWiseSortedCensusData() throws CensusAnalyserException {
+        try (Writer writer = new FileWriter("./src/test/resources/IndiaStatePopulationDataJson.json")) {
+            if (censusCSVList == null || censusCSVList.size() == 0) {
+                throw new CensusAnalyserException("No data", CensusAnalyserException.ExceptionType.NO_DATA);
+            }
+            Comparator<IndiaCensusCSV> censusComparator = Comparator.comparing(census -> census.population);
+            this.SortInDescendOrder(censusComparator);
+            String json = new Gson().toJson(censusCSVList);
+            Gson gson = new GsonBuilder().create();
+            gson.toJson(censusCSVList, writer);
+            return json;
+
+        } catch (RuntimeException | IOException e) {
+            throw new CensusAnalyserException(e.getMessage(),
+                    CensusAnalyserException.ExceptionType.FILE_OR_HEADER_PROBLEM);
+        }
+    }
 
     private void sort(Comparator<IndiaCensusCSV> censusComparator) {
         for (int i = 0; i < censusCSVList.size() - 1; i++) {
@@ -138,6 +156,18 @@ public class CensusAnalyser {
                 if (censusComparator.compare(census1, census2) > 0) {
                     stateCSVList.set(j, census2);
                     stateCSVList.set(j + 1, census1);
+                }
+            }
+        }
+    }
+    private void SortInDescendOrder(Comparator<IndiaCensusCSV> censusComparator) {
+        for (int i = 0; i < censusCSVList.size() - 1; i++) {
+            for (int j = 0; j < censusCSVList.size() - i - 1; j++) {
+                IndiaCensusCSV census1 = censusCSVList.get(j);
+                IndiaCensusCSV census2 = censusCSVList.get(j + 1);
+                if (censusComparator.compare(census1, census2) < 0) {
+                    censusCSVList.set(j, census2);
+                    censusCSVList.set(j + 1, census1);
                 }
             }
         }
