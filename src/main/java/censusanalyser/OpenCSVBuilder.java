@@ -4,7 +4,9 @@ import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 
 import java.io.Reader;
+import java.util.Comparator;
 import java.util.Iterator;
+import java.util.List;
 
 public class OpenCSVBuilder implements InterfaceCSVBuilder {
 
@@ -24,5 +26,10 @@ public class OpenCSVBuilder implements InterfaceCSVBuilder {
 					CSVBuilderException.ExceptionType.CENSUS_FILE_PROBLEM);
 		}
 
+	}
+
+	public List<IndiaCensusCSV> getCSVFList(Reader reader, Class<IndiaCensusCSV> class1) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
