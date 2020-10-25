@@ -99,6 +99,24 @@ public class CensusAnalyser {
             		CensusAnalyserException.ExceptionType.FILE_OR_HEADER_PROBLEM);
         }
     }
+	
+	public String getStateCodeWiseSortedCensusData() throws CensusAnalyserException {
+        try (Writer writer = new FileWriter("./src/test/resources/IndiaStateCodeDataJson.json")) {
+            if (stateCSVList== null || stateCSVList.size() == 0) {
+                throw new CensusAnalyserException("No data", CensusAnalyserException.ExceptionType.NO_DATA);
+            }
+            Comparator<IndiaStateCodeCSV> censusComparator = Comparator.comparing(state -> state.stateCode);
+            this.sortState(censusComparator);
+            String json = new Gson().toJson(stateCSVList);
+            Gson gson = new GsonBuilder().create();
+            gson.toJson(stateCSVList, writer);
+            return json;
+
+        } catch (RuntimeException | IOException e) {
+            throw new CensusAnalyserException(e.getMessage(),
+                    CensusAnalyserException.ExceptionType.FILE_OR_HEADER_PROBLEM);
+        }
+    }
 
     private void sort(Comparator<IndiaCensusCSV> censusComparator) {
         for (int i = 0; i < censusCSVList.size() - 1; i++) {
@@ -108,6 +126,18 @@ public class CensusAnalyser {
                 if (censusComparator.compare(census1, census2) > 0) {
                     censusCSVList.set(j, census2);
                     censusCSVList.set(j + 1, census1);
+                }
+            }
+        }
+    }
+    private void sortState(Comparator<IndiaStateCodeCSV> censusComparator) {
+        for (int i = 0; i < stateCSVList.size() - 1; i++) {
+            for (int j = 0; j < stateCSVList.size() - i - 1; j++) {
+               IndiaStateCodeCSV census1 = stateCSVList.get(j);
+                IndiaStateCodeCSV census2 = stateCSVList.get(j + 1);
+                if (censusComparator.compare(census1, census2) > 0) {
+                    stateCSVList.set(j, census2);
+                    stateCSVList.set(j + 1, census1);
                 }
             }
         }
