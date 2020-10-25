@@ -37,7 +37,7 @@ public class CensusAnalyser {
 
 	}
 	
-	public <E> Iterator<E> getCSVFileIterator(Reader reader, Class<E> csvClass) throws CensusAnalyserException {
+	public <E> Iterator<E> getCSVFileIterator(Reader reader, Class<E> csvClass) throws CSVBuilderException {
         try {
             CsvToBeanBuilder<E> csvToBeanBuilder = new CsvToBeanBuilder<>(reader);
             csvToBeanBuilder.withType(csvClass);
@@ -47,10 +47,10 @@ public class CensusAnalyser {
             return censusCSVIterator;
 
         } catch (IllegalStateException e) {
-            throw new CensusAnalyserException(e.getMessage(), CensusAnalyserException.ExceptionType.UNABLE_TO_PARSE);
+            throw new CSVBuilderException(e.getMessage(), CSVBuilderException.ExceptionType.UNABLE_TO_PARSE);
         } catch (RuntimeException e) {
-        		throw new CensusAnalyserException(e.getMessage(),
-                    CensusAnalyserException.ExceptionType.STATE_CODE_FILE_PROBLEM);
+        		throw new CSVBuilderException(e.getMessage(),
+        				CSVBuilderException.ExceptionType.STATE_CODE_FILE_PROBLEM);
                     
         }
 
